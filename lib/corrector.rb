@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'csv'
 
+# CSVファイルの各カラムの値のフォーマットを整形するクラス
 class Corrector
   def format_submissions(input_file, output_path)
     csv_data = CSV.read(input_file)
@@ -7,6 +10,7 @@ class Corrector
     CSV.open(output_path, 'wb') do |csv|
       csv_data.map do |row|
         next if row[0] == '#'
+
         csv << create_new_row(row)
       end
     end
@@ -20,9 +24,7 @@ class Corrector
     phone_number.gsub!(/\D/, '')
 
     # 数字部分が11桁かつ最初が1で始まる場合はトリム
-    if phone_number.match?(/^\d{11}$/) && phone_number.start_with?('1')
-      phone_number = phone_number[1..-1]
-    end
+    phone_number = phone_number[1..] if phone_number.match?(/^\d{11}$/) && phone_number.start_with?('1')
 
     # 長さが正しいか確認
     return nil unless phone_number.match?(/^\d{10}$/)
@@ -32,9 +34,7 @@ class Corrector
 
   def words_capitalize(str)
     words = str.split
-    converted_words = words.map do |word|
-      word.capitalize
-    end
+    converted_words = words.map(&:capitalize)
     converted_words.join(' ')
   end
 
@@ -43,8 +43,7 @@ class Corrector
     cleaned_postal_code = postal_code.upcase.gsub(/[^A-Z0-9]/, '')
 
     # フォーマットに統一
-    formatted_postal_code = "#{cleaned_postal_code[0, 3]} #{cleaned_postal_code[3, 3]}"
-    formatted_postal_code
+    "#{cleaned_postal_code[0, 3]} #{cleaned_postal_code[3, 3]}"
   end
 
   def create_new_row(row)

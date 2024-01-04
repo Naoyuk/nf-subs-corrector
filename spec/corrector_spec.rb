@@ -74,12 +74,9 @@ RSpec.describe Corrector do
     end
   end
 
-  describe '#create_new_row' do
+  # describe '#create_new_row' do
+  # end
 
-  end
-
-  describe '#format_submissions' do
-
-  end
+  # describe '#format_submissions' do
+  # end
 end
-

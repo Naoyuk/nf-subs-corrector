@@ -1,4 +1,5 @@
-require 'debug'
+# frozen_string_literal: true
+
 require_relative '../lib/corrector'
 
 input_files = []
@@ -10,6 +11,5 @@ corrector = Corrector.new
 
 input_files.each do |input_file|
   output_file = File.expand_path(File.basename(input_file), './output')
-  debugger
   corrector.format_submissions(input_file, output_file)
 end

@@ -1,5 +1,4 @@
 require 'csv'
-require 'debug'
 
 class Corrector
   def format_submissions(input_file, output_path)
@@ -65,22 +64,3 @@ class Corrector
     new_row
   end
 end
-
-input_0 = File.expand_path('nf-subs-1013.csv', './src')
-input_1 = File.expand_path('nf-subs-1015.csv', './src')
-input_2 = File.expand_path('nf-subs-1016.csv', './src')
-input_3 = File.expand_path('nf-subs-1017.csv', './src')
-input_4 = File.expand_path('nf-subs-1018.csv', './src')
-
-output_0 = File.expand_path('nf-subs-1013.csv', './output')
-output_1 = File.expand_path('nf-subs-1015.csv', './output')
-output_2 = File.expand_path('nf-subs-1016.csv', './output')
-output_3 = File.expand_path('nf-subs-1017.csv', './output')
-output_4 = File.expand_path('nf-subs-1018.csv', './output')
-
-corrector = Corrector.new
-corrector.format_submissions(input_0, output_0)
-corrector.format_submissions(input_1, output_1)
-corrector.format_submissions(input_2, output_2)
-corrector.format_submissions(input_3, output_3)
-corrector.format_submissions(input_4, output_4)

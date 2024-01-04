@@ -1,11 +1,17 @@
 require 'csv'
 require 'debug'
 
-spark_0 = File.expand_path('nf-subs-1013.csv', './src')
-spark_1 = File.expand_path('nf-subs-1015.csv', './src')
-spark_2 = File.expand_path('nf-subs-1016.csv', './src')
-spark_3 = File.expand_path('nf-subs-1017.csv', './src')
-spark_4 = File.expand_path('nf-subs-1018.csv', './src')
+input_0 = File.expand_path('nf-subs-1013.csv', './src')
+input_1 = File.expand_path('nf-subs-1015.csv', './src')
+input_2 = File.expand_path('nf-subs-1016.csv', './src')
+input_3 = File.expand_path('nf-subs-1017.csv', './src')
+input_4 = File.expand_path('nf-subs-1018.csv', './src')
+
+output_0 = File.expand_path('nf-subs-1013.csv', './output')
+output_1 = File.expand_path('nf-subs-1015.csv', './output')
+output_2 = File.expand_path('nf-subs-1016.csv', './output')
+output_3 = File.expand_path('nf-subs-1017.csv', './output')
+output_4 = File.expand_path('nf-subs-1018.csv', './output')
 
 def format_phone_number(phone_number)
   # 前後の余分な文字や数字をトリム
@@ -42,26 +48,36 @@ def format_postal_code(postal_code)
   formatted_postal_code
 end
 
-def format_submissions(file_path)
-  csv_data = CSV.read(file_path)
+def create_new_row(row)
+  new_row = []
+  new_row << words_capitalize(row[2])
+  new_row << words_capitalize(row[3])
+  new_row << words_capitalize(row[4])
 
-  csv_data.each do |row|
-    next if row[0] == '#'
+  new_row << row[5].downcase
+  new_row << format_phone_number(row[6])
+  new_row << words_capitalize(row[8])
+  new_row << format_postal_code(row[9])
 
-    row[2].capitalize
-    row[3].capitalize
-    row[4].capitalize
-
-    row[5].downcase
-    format_phone_number(row[6])
-    words_capitalize(row[8])
-    format_postal_code(row[9])
-
-    row[14].capitalize
-    row[15].capitalize
-    row[16].capitalize
-  end
-  debugger
+  new_row << words_capitalize(row[14])
+  new_row << words_capitalize(row[15])
+  new_row << words_capitalize(row[16])
+  new_row
 end
 
-format_submissions(spark_0)
+def format_submissions(input_file, output_path)
+  csv_data = CSV.read(input_file)
+
+  CSV.open(output_path, 'wb') do |csv|
+    csv_data.map do |row|
+      next if row[0] == '#'
+      csv << create_new_row(row)
+    end
+  end
+end
+
+format_submissions(input_0, output_0)
+format_submissions(input_1, output_1)
+format_submissions(input_2, output_2)
+format_submissions(input_3, output_3)
+format_submissions(input_4, output_4)

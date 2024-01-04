@@ -48,18 +48,28 @@ class Corrector
 
   def create_new_row(row)
     new_row = []
+    new_row << row[0]
+    new_row << row[1]
     new_row << words_capitalize(row[2])
     new_row << words_capitalize(row[3])
     new_row << words_capitalize(row[4])
 
     new_row << row[5].downcase
     new_row << format_phone_number(row[6])
+    new_row << row[7]
     new_row << words_capitalize(row[8])
     new_row << format_postal_code(row[9])
+
+    new_row << row[10]
+    new_row << row[11]
+    new_row << row[12]
+    new_row << row[13]
 
     new_row << words_capitalize(row[14])
     new_row << words_capitalize(row[15])
     new_row << words_capitalize(row[16])
+
+    new_row << row[17]
     new_row
   end
 end

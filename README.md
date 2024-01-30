@@ -11,10 +11,9 @@
 3. The script will process all CSV files in the `/src` folder, standardize their formats, and save the corrected files in the `/output` folder.
 
 ## Installation
-
-    ```bash
-    git clone https://github.com/Naoyuk/nf-subs-corrector
-    ```
+```bash
+git clone https://github.com/Naoyuk/nf-subs-corrector
+```
 
 ## How to Run
 

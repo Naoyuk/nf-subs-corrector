@@ -2,6 +2,16 @@
 
 require_relative '../lib/corrector'
 
+script_dir = File.expand_path(File.dirname(__FILE__))
+downloads_dir = File.join(Dir.home, 'Downloads')
+src_dir = File.join(script_dir, '../src')
+files_to_move = Dir.glob(File.join(downloads_dir, 'nf-subs-*.*'))
+
+files_to_move.each do |file|
+  src_path = File.join(src_dir, File.basename(file))
+  File.rename(file, src_path)
+end
+
 input_files = []
 Dir.foreach('./src') do |file_name|
   input_files << File.expand_path(file_name, './src') unless File.extname(file_name).empty?
